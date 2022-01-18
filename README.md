@@ -16,17 +16,19 @@ Test files must en with `-test.yml`, for example `project-test.yml`. Setup files
 
 Add a config file in `$APP_ROOT/test/flekk.yml`:
 ```yml
+# Database setup for the db command, requires mongodb
 db:
   name: flekk-test
 ```
 
-This is how a test file could look like:
+This is how a test file can look like:
 
 ```yml
 # Run setup files
 setup:
   - create-user
   - login
+
 # Create account
 api:
   action: account/create
