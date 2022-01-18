@@ -6,9 +6,6 @@ const { tree, read } = require('extras')
 const assert = require('assert')
 const _ = require('lodash')
 
-const url = `http://localhost:${process.env.WAVEORB_PORT || '5061'}`
-const client = waveorb(url)
-
 const CONFIG = {
   db: {
     name: 'flekk-test'
@@ -29,6 +26,10 @@ module.exports = function flekk(opt = {}) {
   } catch(e) {}
   config = _.merge(CONFIG, config)
 
+  const port = process.env.FLEKK_PORT || config.port || opt.port || 5061
+  const url = `http://localhost:${port}`
+  const client = waveorb(url)
+
   for (const file of files) {
     const data = read(file)
     const name = file
@@ -45,7 +46,7 @@ module.exports = function flekk(opt = {}) {
     }
   }
 
-  async function setup({ val, run, state }) {
+  async function setup({ val, run }) {
     if (typeof val == 'string') val = [val]
     for (const name of val) {
       const s = setups.find(x => x.name == name)
@@ -61,7 +62,6 @@ module.exports = function flekk(opt = {}) {
     if (verb == 'update') args = [query, values]
     if (verb == 'delete') args = [query]
 
-    // TODO: Need to get the name from config file
     if (!$db) $db = await connection(config.db)
     return await $db(model)[verb](...args)
   }
