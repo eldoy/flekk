@@ -1,7 +1,11 @@
 const flekk = require('../../index.js')
 
 /* GENERAL *
- **********/
+***********/
+
+setup(async function({ db }){
+  await db.drop()
+})
 
 it('should run weblang', async ({ t }) => {
   let state = await flekk([
@@ -12,7 +16,7 @@ it('should run weblang', async ({ t }) => {
 
 
 /* TEST *
- *******/
+********/
 
 it('should test pass string', async ({ t }) => {
   let state = await flekk([
@@ -136,11 +140,34 @@ it('should test fail object', async ({ t }) => {
   t.ok(state === null)
 })
 
+/* DB *
+*******/
+
+it('should work with db', async ({ t }) => {
+  let state = await flekk([
+    'db$result:',
+    '  action: project/create',
+    '  values:',
+    '    name: hello'
+  ].join('\n'))
+  t.ok(state.vars.result.id != null)
+  t.ok(state.vars.result.name == 'hello')
+})
+
+
 /* API *
 *******/
 
-/* DB *
-*******/
+it('should work with api', async ({ t }) => {
+  let state = await flekk([
+    'api$result:',
+    '  action: project/create',
+    '  values:',
+    '    name: hello'
+  ].join('\n'))
+  t.ok(state.vars.result.hello == 'world')
+})
+
 
 /* SETUP *
 *******/

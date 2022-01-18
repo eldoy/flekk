@@ -19,7 +19,7 @@ api:
     password: testtest
 
 # Login to account
-login$api:
+api$login:
   values:
     email: vidar@eldoy.com
     password: testtest
@@ -29,7 +29,7 @@ test:
       required: true
 
 # Perform test
-result$api:
+api$result:
   action: site/create
   values:
     name: hello
@@ -40,7 +40,7 @@ test:
       is: id
 
 # Access database
-site$db:
+db$site:
   action: site/get
   query:
     id: $result.id

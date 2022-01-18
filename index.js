@@ -1,8 +1,11 @@
 const weblang = require('weblang')
 const waveorb = require('waveorb-client')
-const mongodb = require('mongowave')
+const connection = require('mongowave')
 const extras = require('extras')
 const assert = require('assert')
+
+const url = `http://localhost:${process.env.WAVEORB_PORT || '5061'}`
+const client = waveorb(url)
 
 async function setup({ val, run }) {
   // const filters = await $.db('filter').find({ name: { $in: val } })
@@ -13,14 +16,15 @@ async function setup({ val, run }) {
 
 let $db = null
 async function db({ val }) {
-  let { path, query, values, options } = val
-  let [model, verb] = path.split('/')
+  let { action, query, values, options } = val
+  let [model, verb] = action.split('/')
   let args = [query, options]
   if (verb == 'create') args = [values]
   if (verb == 'update') args = [query, values]
   if (verb == 'delete') args = [query]
 
-  if (!$db) $db = mongodb({ name: 'flekk' })
+  // TODO: Need to get the name from config file
+  if (!$db) $db = await connection({ name: 'flekk-test' })
   return await $db(model)[verb](...args)
 }
 
@@ -38,13 +42,8 @@ async function test({ val, get }) {
   }
 }
 
-async function api({ val, state }) {
-  console.log(val, state)
-  const url = `http://localhost:${process.env.WAVEORB_PORT || '5061'}`
-  const client = waveorb(url)
-  const result = await api({
-    action: 'project/create'
-  })
+async function api({ val }) {
+  return await client(val)
 }
 
 module.exports = async function flekk(code) {
