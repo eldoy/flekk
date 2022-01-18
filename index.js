@@ -88,6 +88,7 @@ module.exports = function flekk(opt = {}) {
         const obj = Object.assign({}, t)
         obj.state = await runner(t.data)
         results.push(obj)
+        if ($db) await $db.drop()
       }
     }
     return results

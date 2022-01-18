@@ -3,10 +3,6 @@ const flekk = require('../../index.js')
 /* GENERAL *
 ***********/
 
-setup(async function({ db }){
-  await db.drop()
-})
-
 it('should run weblang', async ({ t }) => {
   let result = await flekk()('test1')
   t.ok(result[0].state.vars.hello == 1)
