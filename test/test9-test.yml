@@ -1,0 +1,7 @@
+$hello:
+  name: hello
+  email: hello@example.com
+test:
+  $hello:
+    name: bye
+    email: bye@example.com
