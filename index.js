@@ -31,7 +31,7 @@ module.exports = function flekk(opt = {}) {
     || opt.port
     || 5061
 
-  const url = process.env.FLEKK_PORT
+  const url = process.env.FLEKK_URL
     || config.url
     || opt.url
     || 'http://localhost'
