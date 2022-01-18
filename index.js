@@ -2,22 +2,35 @@ const fpath = require('path')
 const weblang = require('weblang')
 const waveorb = require('waveorb-client')
 const connection = require('mongowave')
-const extras = require('extras')
+const { tree, read } = require('extras')
 const assert = require('assert')
+const _ = require('lodash')
 
 const url = `http://localhost:${process.env.WAVEORB_PORT || '5061'}`
 const client = waveorb(url)
+
+const CONFIG = {
+  db: {
+    name: 'flekk-test'
+  }
+}
 
 module.exports = function flekk(opt = {}) {
   const path = opt.path || 'test'
   let $db = null
   const tests = []
   const setups = []
-  let files = extras.tree(path)
+  let files = tree(path)
   let root = fpath.join(process.cwd(), path)
 
+  let config = {}
+  try {
+    config = read(fpath.join(root, 'flekk.yml'))
+  } catch(e) {}
+  config = _.merge(CONFIG, config)
+
   for (const file of files) {
-    const data = extras.read(file)
+    const data = read(file)
     const name = file
       .replace(root, '')
       .replace(/-(test|setup)\.yml$/, '')
@@ -49,7 +62,7 @@ module.exports = function flekk(opt = {}) {
     if (verb == 'delete') args = [query]
 
     // TODO: Need to get the name from config file
-    if (!$db) $db = await connection({ name: 'flekk-test' })
+    if (!$db) $db = await connection(config.db)
     return await $db(model)[verb](...args)
   }
 
