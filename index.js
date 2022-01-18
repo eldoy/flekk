@@ -26,9 +26,17 @@ module.exports = function flekk(opt = {}) {
   } catch(e) {}
   config = _.merge(CONFIG, config)
 
-  const port = process.env.FLEKK_PORT || config.port || opt.port || 5061
-  const url = `http://localhost:${port}`
-  const client = waveorb(url)
+  const port = process.env.FLEKK_PORT
+    || config.port
+    || opt.port
+    || 5061
+
+  const url = process.env.FLEKK_PORT
+    || config.url
+    || opt.url
+    || 'http://localhost'
+
+  const client = waveorb(`${url}:${port}`)
 
   for (const file of files) {
     const data = read(file)

@@ -17,6 +17,7 @@ Test files must en with `-test.yml`, for example `project-test.yml`. Setup files
 Add a config file in `$APP_ROOT/test/flekk.yml`:
 ```yml
 # Database setup for the db command, requires mongodb
+url: http://localhost
 port: 5061
 db:
   name: flekk-test
