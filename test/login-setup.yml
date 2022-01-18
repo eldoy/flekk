@@ -1,0 +1,2 @@
+api$session:
+  action: session/create

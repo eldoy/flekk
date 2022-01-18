@@ -27,16 +27,17 @@ module.exports = function flekk(opt = {}) {
 
     if (file.endsWith('-test.yml')) {
       tests.push(node)
-    } else if (file.endsWith('-setup-yml')) {
+    } else if (file.endsWith('-setup.yml')) {
       setups.push(node)
     }
   }
 
-  async function setup({ val, run }) {
-    // const filters = await $.db('filter').find({ name: { $in: val } })
-    // for (const filter of filters) {
-    //   await run(filter.data)
-    // }
+  async function setup({ val, run, state }) {
+    if (typeof val == 'string') val = [val]
+    for (const name of val) {
+      const s = setups.find(x => x.name == name)
+      if (s) await run(s.data)
+    }
   }
 
   async function db({ val }) {
