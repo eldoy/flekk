@@ -1,11 +1,12 @@
 #!/usr/bin/env node
-const flekk = require('../index.js')
 const { inspect } = require('extras')
+const flekk = require('../index.js')
 
 const match = process.argv[2]
 
 async function run() {
   console.log(`\n⭐ Starting test suite`)
+  await new Promise(r => setTimeout(r, 1000))
   console.time('Time elapsed')
 
   try {
