@@ -3,6 +3,9 @@
   "version": "0.3.1",
   "description": "YAML API testing library",
   "main": "index.js",
+  "bin": {
+    "flekk": "bin/flekk.js"
+  },
   "scripts": {
     "test": "WAVEORB_PORT=5061 nodemon -q --exec spekk",
     "serve:test": "WAVEORB_PORT=5061 WAVEORB_SKIPMAIN=1 nodemon --exec waveorb serve"
