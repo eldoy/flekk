@@ -5,17 +5,13 @@ const flekk = require('../index.js')
 const match = process.argv[2]
 
 async function run() {
-  console.log(`\n⭐ Starting test suite`)
-  console.time('Time elapsed')
-
   try {
-    await flekk()(match)
+    await flekk({ timer: true })(match)
   } catch(e) {
     inspect(e.data, { depth: 20 })
   }
 
   console.log()
-  console.timeEnd('Time elapsed')
   process.exit(0)
 }
 run()

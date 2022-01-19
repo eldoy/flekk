@@ -121,7 +121,13 @@ module.exports = function flekk(opt = {}) {
 
   return async function(match) {
 
+    log(`\n⭐ Starting test suite`)
+
     await server()
+
+    if (opt.timer) {
+      console.time('Time elapsed')
+    }
 
     const results = []
     for (const t of tests) {
@@ -139,6 +145,11 @@ module.exports = function flekk(opt = {}) {
         if ($db) await $db.drop()
       }
     }
+
+    if (opt.timer) {
+      console.timeEnd('Time elapsed')
+    }
+
     return results
   }
 }
