@@ -121,7 +121,7 @@ module.exports = function flekk(opt = {}) {
 
   return async function(match) {
 
-    log(`\n⭐ Starting test suite`)
+    log('\n⭐ Starting test suite\n')
 
     await server()
 
@@ -147,6 +147,7 @@ module.exports = function flekk(opt = {}) {
     }
 
     if (opt.timer) {
+      console.log()
       console.timeEnd('Time elapsed')
     }
 

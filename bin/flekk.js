@@ -11,7 +11,6 @@ async function run() {
     inspect(e.data, { depth: 20 })
   }
 
-  console.log()
   process.exit(0)
 }
 run()
