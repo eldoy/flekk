@@ -72,14 +72,14 @@ module.exports = function flekk(opt = {}) {
 
   async function test({ val, get, params }) {
     const name = Object.keys(val)[0]
-    const actual = get(name)
+    const received = get(name)
     const expected = val[name]
     try {
-      assert.deepEqual(actual, expected)
+      assert.deepEqual(received, expected)
     } catch(e) {
       if (e.code != 'ERR_ASSERTION') throw e
       const error = new Error('Test failed')
-      error.data = { ...params, actual, expected }
+      error.data = { ...params, received, expected }
       throw error
     }
   }

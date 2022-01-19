@@ -11,7 +11,7 @@ async function run() {
   try {
     await flekk()(match)
   } catch(e) {
-    inspect(e.data)
+    inspect(e.data, { depth: 20 })
   }
 
   console.log()
