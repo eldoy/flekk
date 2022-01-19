@@ -5,6 +5,7 @@ const connection = require('mongowave')
 const { tree, read } = require('extras')
 const assert = require('assert')
 const _ = require('lodash')
+const fport = require('fport')
 
 const CONFIG = { db: { name: 'flekk-test' } }
 
@@ -105,7 +106,21 @@ module.exports = function flekk(opt = {}) {
     }
   }
 
+  // Wait for web server
+  async function server() {
+    let up, retry = 0, host = url.replace(/https?:\/\//, '')
+    while(!up && retry++ <= 50) {
+      up = await fport.taken(port, host)
+    }
+    if (!up) {
+      console.log('Could not connect to app server... exiting.\n')
+      process.exit(0)
+    }
+  }
+
   return async function(match) {
+
+    await server()
 
     const results = []
     for (const t of tests) {

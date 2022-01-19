@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "extras": "^0.8.1",
+    "fport": "^0.2.2",
     "lodash": "^4.17.21",
     "mongowave": "^0.2.5",
     "waveorb-client": "^0.7.0",
