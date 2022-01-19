@@ -10,7 +10,7 @@ npm i -g flekk
 
 ### Usage
 
-All test and setup files live in the `$APP_ROOT/test` directory.
+All test and setup files live in the `$APP_ROOT/test` directory, and written with [weblang.](https://github.com/eldoy/weblang)
 
 Test files must en with `.test.yml`, for example `project.test.yml`. Setup files, which can be included in test files, must end with `.setup.yml`, like in `login.setup.yml`.
 
@@ -24,6 +24,13 @@ port: 5061
 db:
   name: flekk-test
 ```
+
+There are 4 basic commands:
+
+* __setup__ - Runs setup files
+* __api__   - query an action endpoint
+* __db__    - access the database
+* __test__  - test a value
 
 This is how a test file can look like:
 
@@ -71,15 +78,6 @@ test:
     id:
       required: true
 ```
-
-There are 4 basic commands:
-
-* __setup__ - Runs setup files
-* __api__   - query an action endpoint
-* __db__    - access the database
-* __test__  - test a value
-
-Setup and test files are based on [weblang.](https://github.com/eldoy/weblang)
 
 Run the tests with:
 ```
