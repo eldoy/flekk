@@ -5,7 +5,7 @@ YAML API testing library.
 ### Install
 
 ```
-npm i flekk
+npm i -g flekk
 ```
 
 ### Usage
@@ -78,5 +78,25 @@ There are 4 basic commands:
 * __test__  - test a value
 
 Setup and test files are based on [weblang.](https://github.com/eldoy/weblang)
+
+Run the tests with:
+```
+# Run all tests
+flekk
+
+# Run matching tests
+flekk names
+
+# With nodemon
+nodemon --exec flekk
+```
+
+Add this to you `package.json` file to run with `npm`:
+```json
+"scripts": {
+  "test": "nodemon -q --exec flekk"
+}
+```
+Then run with `npm run test` in your application.
 
 MIT Licensed. Enjoy!
