@@ -38,14 +38,14 @@ module.exports = function flekk(opt = {}) {
     const data = read(file)
     const name = file
       .replace(root, '')
-      .replace(/-(test|setup)\.yml$/, '')
+      .replace(/\.(test|setup)\.yml$/, '')
       .slice(1)
 
     const node = { file, data, name }
 
-    if (file.endsWith('-test.yml')) {
+    if (file.endsWith('.test.yml')) {
       tests.push(node)
-    } else if (file.endsWith('-setup.yml')) {
+    } else if (file.endsWith('.setup.yml')) {
       setups.push(node)
     }
   }

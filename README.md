@@ -12,13 +12,15 @@ npm i -g flekk
 
 All test and setup files live in the `$APP_ROOT/test` directory.
 
-Test files must en with `-test.yml`, for example `project-test.yml`. Setup files, which can be included in test files, must end with `-setup.yml`, like in `login-setup.yml`.
+Test files must en with `.test.yml`, for example `project.test.yml`. Setup files, which can be included in test files, must end with `.setup.yml`, like in `login.setup.yml`.
 
 Add a config file in `$APP_ROOT/test/flekk.yml`:
 ```yml
-# Database setup for the db command, requires mongodb
+# The URL and port of the app you are testing
 url: http://localhost
 port: 5061
+
+# Database setup for the db command, requires mongodb
 db:
   name: flekk-test
 ```
