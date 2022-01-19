@@ -4,7 +4,8 @@
   "description": "YAML API testing library",
   "main": "index.js",
   "scripts": {
-    "test": "WAVEORB_PORT=5061 nodemon -q --exec spekk"
+    "test": "WAVEORB_PORT=5061 nodemon -q --exec spekk",
+    "serve:test": "WAVEORB_PORT=5061 WAVEORB_SKIPMAIN=1 nodemon --exec waveorb serve"
   },
   "repository": {
     "type": "git",
@@ -14,13 +15,13 @@
   "license": "MIT",
   "devDependencies": {
     "spekk": "^0.2.0",
-    "waveorb": "^0.23.5"
+    "waveorb": "^0.23.6"
   },
   "dependencies": {
     "extras": "^0.8.1",
     "lodash": "^4.17.21",
     "mongowave": "^0.2.5",
     "waveorb-client": "^0.7.0",
-    "weblang": "^0.4.9"
+    "weblang": "^0.4.10"
   }
 }

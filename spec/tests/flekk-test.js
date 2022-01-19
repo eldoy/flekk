@@ -1,10 +1,11 @@
 const flekk = require('../../index.js')
+const opt = { quiet: true }
 
 /* GENERAL *
 ***********/
 
 it('should run weblang', async ({ t }) => {
-  let result = await flekk()('test1')
+  let result = await flekk(opt)('test1')
   t.ok(result[0].state.vars.hello == 1)
 })
 
@@ -13,14 +14,14 @@ it('should run weblang', async ({ t }) => {
 ********/
 
 it('should test pass string', async ({ t }) => {
-  let result = await flekk()('test2')
+  let result = await flekk(opt)('test2')
   t.ok(result[0].state.vars.hello == 'hello')
 })
 
 it('should test fail string', async ({ t }) => {
   let result = null
   try {
-    result = await flekk()('test3')
+    result = await flekk(opt)('test3')
   } catch(e) {
     t.ok(e.data.actual == 'world')
     t.ok(e.data.expected == 'bye')
@@ -30,14 +31,14 @@ it('should test fail string', async ({ t }) => {
 })
 
 it('should test pass integer', async ({ t }) => {
-  let result = await flekk()('test4')
+  let result = await flekk(opt)('test4')
   t.ok(result[0].state.vars.hello == 1)
 })
 
 it('should test fail integer', async ({ t }) => {
   let result = null
   try {
-    result = await flekk()('test5')
+    result = await flekk(opt)('test5')
   } catch(e) {
     t.ok(e.data.actual == 1)
     t.ok(e.data.expected == 2)
@@ -47,7 +48,7 @@ it('should test fail integer', async ({ t }) => {
 })
 
 it('should test pass array', async ({ t }) => {
-  let result = await flekk()('test6')
+  let result = await flekk(opt)('test6')
   t.ok(result[0].state.vars.hello[0] == 1)
   t.ok(result[0].state.vars.hello[1] == 2)
 })
@@ -55,7 +56,7 @@ it('should test pass array', async ({ t }) => {
 it('should test fail array', async ({ t }) => {
   let result = null
   try {
-    result = await flekk()('test7')
+    result = await flekk(opt)('test7')
   } catch(e) {
     t.ok(e.data.actual[0] == 1)
     t.ok(e.data.actual[1] == 2)
@@ -67,7 +68,7 @@ it('should test fail array', async ({ t }) => {
 })
 
 it('should test pass object', async ({ t }) => {
-  let result = await flekk()('test8')
+  let result = await flekk(opt)('test8')
   t.ok(result[0].state.vars.hello.name == 'hello')
   t.ok(result[0].state.vars.hello.email == 'hello@example.com')
 })
@@ -75,7 +76,7 @@ it('should test pass object', async ({ t }) => {
 it('should test fail object', async ({ t }) => {
   let result = null
   try {
-    result = await flekk()('test9')
+    result = await flekk(opt)('test9')
   } catch(e) {
     t.ok(e.data.actual.name == 'hello')
     t.ok(e.data.actual.email == 'hello@example.com')
@@ -90,7 +91,7 @@ it('should test fail object', async ({ t }) => {
 *******/
 
 it('should work with db', async ({ t }) => {
-  let result = await flekk()('test10')
+  let result = await flekk(opt)('test10')
   t.ok(result[0].state.vars.result.id != null)
   t.ok(result[0].state.vars.result.name == 'hello')
 })
@@ -100,7 +101,7 @@ it('should work with db', async ({ t }) => {
 *******/
 
 it('should work with api', async ({ t }) => {
-  let result = await flekk()('test11')
+  let result = await flekk(opt)('test11')
   t.ok(result[0].state.vars.result.hello == 'world')
 })
 
@@ -109,6 +110,6 @@ it('should work with api', async ({ t }) => {
 *********/
 
 it('should work with setup', async ({ t }) => {
-  let result = await flekk()('test12')
+  let result = await flekk(opt)('test12')
   t.ok(result[0].state.vars.session.token == '1234')
 })

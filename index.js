@@ -6,11 +6,7 @@ const { tree, read } = require('extras')
 const assert = require('assert')
 const _ = require('lodash')
 
-const CONFIG = {
-  db: {
-    name: 'flekk-test'
-  }
-}
+const CONFIG = { db: { name: 'flekk-test' } }
 
 module.exports = function flekk(opt = {}) {
   const path = opt.path || 'test'
@@ -74,7 +70,7 @@ module.exports = function flekk(opt = {}) {
     return await $db(model)[verb](...args)
   }
 
-  async function test({ val, get }) {
+  async function test({ val, get, params }) {
     const name = Object.keys(val)[0]
     const actual = get(name)
     const expected = val[name]
@@ -83,7 +79,7 @@ module.exports = function flekk(opt = {}) {
     } catch(e) {
       if (e.code != 'ERR_ASSERTION') throw e
       const error = new Error('Test failed')
-      error.data = { actual, expected }
+      error.data = { ...params, actual, expected }
       throw error
     }
   }
@@ -103,12 +99,26 @@ module.exports = function flekk(opt = {}) {
     }
   })
 
+  function log(...args) {
+    if (!opt.quiet) {
+      console.log(...args)
+    }
+  }
+
   return async function(match) {
+
     const results = []
     for (const t of tests) {
       if (!match || t.name.includes(match)) {
+
         const obj = Object.assign({}, t)
-        obj.state = await runner(t.data)
+        try {
+          obj.state = await runner(t.data, obj)
+          log(`✅ ${t.name}`)
+        } catch(e) {
+          log(`❌ ${t.name}`)
+          throw e
+        }
         results.push(obj)
         if ($db) await $db.drop()
       }

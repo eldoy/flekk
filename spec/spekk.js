@@ -2,8 +2,8 @@ const { serve } = require('waveorb')
 
 module.exports = async function() {
 
-  // Start web server
-  await serve()
+  // Wait for web server
+  await new Promise(r => setTimeout(r, 500))
 
   return {}
 }
