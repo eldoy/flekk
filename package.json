@@ -17,7 +17,8 @@
   "author": "Vidar Eldøy <vidar@eldoy.com>",
   "license": "MIT",
   "devDependencies": {
-    "spekk": "^0.2.0"
+    "spekk": "^0.2.0",
+    "waveorb": "^0.23.7"
   },
   "dependencies": {
     "extras": "^0.8.1",
