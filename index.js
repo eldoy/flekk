@@ -66,8 +66,6 @@ module.exports = function flekk(opt = {}) {
     if (verb == 'create') args = [values]
     if (verb == 'update') args = [query, values]
     if (verb == 'delete') args = [query]
-
-    if (!$db) $db = await connection(config.db)
     return await $db(model)[verb](...args)
   }
 
@@ -117,8 +115,8 @@ module.exports = function flekk(opt = {}) {
   }
 
   return async function(match) {
-
     log('\n⭐ Starting test suite\n')
+    if (!$db) $db = await connection(config.db)
 
     await server()
 
