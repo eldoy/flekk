@@ -111,7 +111,7 @@ module.exports = function flekk(opt = {}) {
     let up, retry = 0, host = url.replace(/https?:\/\//, '')
     while(!up && retry++ <= 50) {
       up = await fport.taken(port, host)
-      await new Promise(r => setTimeout(r, 250))
+      if (!up) await new Promise(r => setTimeout(r, 250))
     }
     if (!up) {
       console.log('Could not connect to app server... exiting.\n')

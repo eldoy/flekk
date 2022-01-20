@@ -17,8 +17,7 @@
   "author": "Vidar Eldøy <vidar@eldoy.com>",
   "license": "MIT",
   "devDependencies": {
-    "spekk": "^0.2.0",
-    "waveorb": "^0.23.6"
+    "spekk": "^0.2.0"
   },
   "dependencies": {
     "extras": "^0.8.1",
@@ -26,6 +25,6 @@
     "lodash": "^4.17.21",
     "mongowave": "^0.2.5",
     "waveorb-client": "^0.7.0",
-    "weblang": "^0.4.10"
+    "weblang": "^0.4.11"
   }
 }
