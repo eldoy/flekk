@@ -8,9 +8,11 @@ async function run() {
   try {
     await flekk({ timer: true })(match)
   } catch(e) {
-    inspect(e.data, { depth: 20 })
+    console.log('')
+    inspect(e.data.spec, { depth: 20 })
+    console.log('')
+    inspect(e.data.received, { depth: 20 })
   }
-
   process.exit(0)
 }
 run()

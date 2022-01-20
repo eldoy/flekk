@@ -73,15 +73,12 @@ module.exports = function flekk(opt = {}) {
 
   async function test({ val, get, params }) {
     for (const name in val) {
-      const expected = val[name]
+      const spec = val[name]
       const received = get(name)
-      const result = await validate(
-        { val: expected },
-        { val: received }
-      )
-      if (result !== null) {
+      const result = await validate(spec, received)
+      if (result) {
         const error = new Error('Test failed')
-        error.data = { ...params, expected, received }
+        error.data = { ...params, spec, received }
         throw error
       }
     }

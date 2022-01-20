@@ -24,7 +24,7 @@ it('should test fail string', async ({ t }) => {
     result = await flekk(opt)('test3')
   } catch(e) {
     t.ok(e.data.received == 'world')
-    t.ok(e.data.expected == 'bye')
+    t.ok(e.data.spec == 'bye')
     t.ok(e.message == 'Test failed')
   }
   t.ok(result === null)
@@ -41,7 +41,7 @@ it('should test fail integer', async ({ t }) => {
     result = await flekk(opt)('test5')
   } catch(e) {
     t.ok(e.data.received == 1)
-    t.ok(e.data.expected == 2)
+    t.ok(e.data.spec == 2)
     t.ok(e.message == 'Test failed')
   }
   t.ok(result === null)
@@ -60,8 +60,8 @@ it('should test fail array', async ({ t }) => {
   } catch(e) {
     t.ok(e.data.received[0] == 1)
     t.ok(e.data.received[1] == 2)
-    t.ok(e.data.expected[0] == 2)
-    t.ok(e.data.expected[1] == 3)
+    t.ok(e.data.spec[0] == 2)
+    t.ok(e.data.spec[1] == 3)
     t.ok(e.message == 'Test failed')
   }
   t.ok(result === null)
@@ -80,8 +80,8 @@ it('should test fail object', async ({ t }) => {
   } catch(e) {
     t.ok(e.data.received.name == 'hello')
     t.ok(e.data.received.email == 'hello@example.com')
-    t.ok(e.data.expected.name == 'bye')
-    t.ok(e.data.expected.email == 'bye@example.com')
+    t.ok(e.data.spec.name == 'bye')
+    t.ok(e.data.spec.email == 'bye@example.com')
     t.ok(e.message == 'Test failed')
   }
   t.ok(result === null)
