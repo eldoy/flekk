@@ -1,7 +1,6 @@
 $hello:
   - 1
   - 2
-test:
-  $hello:
-    - 2
-    - 3
+test$hello:
+  - 2
+  - 3
