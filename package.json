@@ -27,6 +27,6 @@
     "lodash": "^4.17.21",
     "mongowave": "^0.2.5",
     "waveorb-client": "^0.7.0",
-    "weblang": "^0.4.11"
+    "weblang": "^0.4.12"
   }
 }
