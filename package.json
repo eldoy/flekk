@@ -21,6 +21,7 @@
     "waveorb": "^0.23.7"
   },
   "dependencies": {
+    "d8a": "^0.3.4",
     "extras": "^0.8.1",
     "fport": "^0.2.2",
     "lodash": "^4.17.21",

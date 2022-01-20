@@ -3,7 +3,7 @@ const weblang = require('weblang')
 const waveorb = require('waveorb-client')
 const connection = require('mongowave')
 const { tree, read } = require('extras')
-const assert = require('assert')
+const { validate } = require('d8a')
 const _ = require('lodash')
 const fport = require('fport')
 
@@ -72,16 +72,18 @@ module.exports = function flekk(opt = {}) {
   }
 
   async function test({ val, get, params }) {
-    const name = Object.keys(val)[0]
-    const received = get(name)
-    const expected = val[name]
-    try {
-      assert.deepEqual(received, expected)
-    } catch(e) {
-      if (e.code != 'ERR_ASSERTION') throw e
-      const error = new Error('Test failed')
-      error.data = { ...params, received, expected }
-      throw error
+    for (const name in val) {
+      const expected = val[name]
+      const received = get(name)
+      const result = await validate(
+        { val: expected },
+        { val: received }
+      )
+      if (result !== null) {
+        const error = new Error('Test failed')
+        error.data = { ...params, expected, received }
+        throw error
+      }
     }
   }
 
