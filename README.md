@@ -68,13 +68,13 @@ flekk
 flekk names
 
 # With nodemon
-nodemon --exec flekk
+nodemon -e js,mjs,json,yml,css,md --exec flekk
 ```
 
 Add this to you `package.json` file to run with `npm`:
 ```json
 "scripts": {
-  "test": "nodemon -q --exec flekk"
+  "test": "nodemon -q -e js,mjs,json,yml,css,md --exec flekk"
 }
 ```
 Then run with `npm run test` in your application.
