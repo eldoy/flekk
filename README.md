@@ -45,6 +45,7 @@ api$result:
   action: site/create
   values:
     name: hello
+  auth: $auth
 test$result:
   id:
     is: id
