@@ -1,18 +1,6 @@
 const flekk = require('../../index.js')
 const opt = { quiet: true }
 
-/* GENERAL *
-***********/
-
-it('should run weblang', async ({ t }) => {
-  let result = await flekk(opt)('test1')
-  t.ok(result[0].state.vars.hello == 1)
-})
-
-
-/* TEST *
-********/
-
 it('should test pass string', async ({ t }) => {
   let result = await flekk(opt)('test2')
   t.ok(result[0].state.vars.hello == 'hello')
@@ -86,25 +74,6 @@ it('should test fail object', async ({ t }) => {
   }
   t.ok(result === null)
 })
-
-/* DB *
-*******/
-
-it('should work with db', async ({ t }) => {
-  let result = await flekk(opt)('test10')
-  t.ok(result[0].state.vars.result.id != null)
-  t.ok(result[0].state.vars.result.name == 'hello')
-})
-
-
-/* API *
-*******/
-
-it('should work with api', async ({ t }) => {
-  let result = await flekk(opt)('test11')
-  t.ok(result[0].state.vars.result.hello == 'world')
-})
-
 
 /* SETUP *
 *********/
