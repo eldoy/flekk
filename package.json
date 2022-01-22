@@ -18,15 +18,15 @@
   "license": "MIT",
   "devDependencies": {
     "spekk": "^0.2.0",
-    "waveorb": "^0.23.7"
+    "waveorb": "^0.23.8"
   },
   "dependencies": {
-    "d8a": "^0.3.7",
-    "extras": "^0.8.1",
+    "d8a": "^0.4.2",
+    "extras": "^0.8.3",
     "fport": "^0.2.2",
     "lodash": "^4.17.21",
     "mongowave": "^0.2.5",
     "waveorb-client": "^0.7.0",
-    "weblang": "^0.4.13"
+    "weblang": "^0.5.0"
   }
 }
