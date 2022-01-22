@@ -7,7 +7,7 @@
     "flekk": "bin/flekk.js"
   },
   "scripts": {
-    "test": "WAVEORB_PORT=5061 nodemon -q --exec spekk",
+    "test": "WAVEORB_PORT=5061 nodemon -q -e js,mjs,json,yml,css,md --exec spekk",
     "serve:test": "WAVEORB_PORT=5061 WAVEORB_SKIPMAIN=1 nodemon --exec waveorb serve"
   },
   "repository": {
