@@ -18,7 +18,7 @@
   "license": "MIT",
   "devDependencies": {
     "spekk": "^0.2.0",
-    "waveorb": "^0.23.8"
+    "waveorb": "^0.24.0"
   },
   "dependencies": {
     "d8a": "^0.4.2",
