@@ -1,6 +1,6 @@
 # Flekk
 
-Low code testing library, test your APIs using only YAML.
+Low code testing library. Test your APIs using only YAML.
 
 ### Install
 
@@ -27,12 +27,12 @@ db:
 
 There are 4 basic commands:
 
-* __setup__ - Runs setup files
+* __setup__ - run setup files
 * __api__   - query an action endpoint
 * __db__    - access the database
 * __test__  - test a value
 
-This is how a test file can look like:
+This is how a test file can be written:
 
 ```yml
 # Run setup files
