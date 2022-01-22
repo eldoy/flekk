@@ -1,6 +1,6 @@
 # Flekk
 
-YAML API testing library.
+Low code testing library, test your APIs using only YAML.
 
 ### Install
 
@@ -40,43 +40,23 @@ setup:
   - create-user
   - login
 
-# Create account
-api:
-  action: account/create
-  values:
-    email: vidar@coding.fun
-    password: testtest
-
-# Login to account
-api$login:
-  values:
-    email: vidar@coding.fun
-    password: testtest
-test:
-  $login:
-    token:
-      required: true
-
-# Perform test
+# Test the site/create API
 api$result:
   action: site/create
   values:
     name: hello
-test:
-  $result:
-    id:
-      required: true
-      is: id
+test$result:
+  id:
+    is: id
 
-# Access database
+# Test database values
 db$site:
   action: site/get
   query:
     id: $result.id
-test:
-  $site:
-    id:
-      required: true
+test$site:
+  id:
+    required: true
 ```
 
 Run the tests with:
