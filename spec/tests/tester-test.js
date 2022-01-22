@@ -74,11 +74,3 @@ it('should test fail object', async ({ t }) => {
   }
   t.ok(result === null)
 })
-
-/* SETUP *
-*********/
-
-it('should work with setup', async ({ t }) => {
-  let result = await flekk(opt)('test12')
-  t.ok(result[0].state.vars.session.token == '1234')
-})
