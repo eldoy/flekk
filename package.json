@@ -1,6 +1,6 @@
 {
   "name": "flekk",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "YAML API testing library",
   "main": "index.js",
   "bin": {
