@@ -14,7 +14,7 @@ All test and setup files live in the `$APP_ROOT/test` directory, and written wit
 
 Test files must en with `.test.yml`, for example `project.test.yml`. Setup files, which can be included in test files, must end with `.setup.yml`, like in `login.setup.yml`.
 
-Add a config file in `$APP_ROOT/test/flekk.yml`:
+The default config file should be added in `$APP_ROOT/test/flekk.config.yml`:
 ```yml
 # The URL and port of the app you are testing
 url: http://localhost
@@ -27,15 +27,27 @@ db:
 
 There are 4 basic commands:
 
-* __setup__ - run setup files
-* __api__   - query an action endpoint
-* __db__    - access the database
-* __test__  - test a value
+* __config__ - load a config file
+* __setup__  - run setup files
+* __api__    - query an action endpoint
+* __db__     - access the database
+* __test__   - test a value
 
 This is how a test file can be written:
 
 ```yml
-# Run setup files
+# Load config file
+config: app
+
+# Load multiple config files
+config:
+  - app
+  - remote
+
+# Run setup file
+setup: login
+
+# Run multiple setup files
 setup:
   - create-user
   - login

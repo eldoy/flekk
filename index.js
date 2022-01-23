@@ -19,7 +19,7 @@ module.exports = function flekk(opt = {}) {
 
   let config = {}
   try {
-    config = read(fpath.join(root, 'flekk.yml'))
+    config = read(fpath.join(root, 'flekk.config.yml'))
   } catch(e) {}
   config = _.merge(CONFIG, config)
 
