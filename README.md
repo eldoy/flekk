@@ -8,11 +8,15 @@ Low code testing library. Test your APIs using only YAML.
 npm i -g flekk
 ```
 
-### Usage
+### Files
 
 All test and setup files live in the `$APP_ROOT/test` directory, and written with [weblang.](https://github.com/eldoy/weblang)
 
 Test files must en with `.test.yml`, for example `project.test.yml`. Setup files, which can be included in test files, must end with `.setup.yml`, like in `login.setup.yml`.
+
+### Config
+
+Config files must end in `.config.yml`, like in `app.config.yml`.
 
 The default config file should be added in `$APP_ROOT/test/flekk.config.yml`:
 ```yml
@@ -24,6 +28,10 @@ port: 5061
 db:
   name: flekk-test
 ```
+
+The default config file is always loaded, and then other config files are merged on top of that.
+
+### Commands
 
 There are 4 basic commands:
 
@@ -71,6 +79,8 @@ test$site:
   id:
     required: true
 ```
+
+### Setup
 
 Run the tests with:
 ```
