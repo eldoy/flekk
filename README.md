@@ -27,7 +27,7 @@ db:
 
 There are 4 basic commands:
 
-* __config__ - load a config file
+* __config__ - load config files
 * __setup__  - run setup files
 * __api__    - query an action endpoint
 * __db__     - access the database
@@ -39,7 +39,7 @@ This is how a test file can be written:
 # Load config file
 config: app
 
-# Load multiple config files
+# Load multiple config files, will be merged
 config:
   - app
   - remote
