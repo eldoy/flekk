@@ -2,7 +2,7 @@ const fpath = require('path')
 const weblang = require('weblang')
 const waveorb = require('waveorb-client')
 const connection = require('mongowave')
-const { tree, read } = require('extras')
+const { tree, read, inspect } = require('extras')
 const { validate } = require('d8a')
 const _ = require('lodash')
 const fport = require('fport')
@@ -88,6 +88,12 @@ module.exports = function flekk(opt = {}) {
     const { url, port } = config
     const client = waveorb(`${url}:${port}`)
     return await client(val)
+  }
+
+  ext.log = function({ key, val, get }) {
+    console.log()
+    inspect({ [key]: get(val) }, { depth: 20 })
+    console.log()
   }
 
   const runner = weblang({ ext })

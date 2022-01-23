@@ -33,13 +33,14 @@ The default config file is always loaded, and then other config files are merged
 
 ### Commands
 
-There are 4 basic commands:
+There are 6 basic commands:
 
 * __config__ - load config files
 * __setup__  - run setup files
 * __api__    - query an action endpoint
 * __db__     - access the database
 * __test__   - test a value
+* __log__    - log a value to console
 
 This is how a test file can be written:
 
@@ -78,6 +79,10 @@ db$site:
 test$site:
   id:
     required: true
+
+# Print value to terminal
+$hello: world
+log: $hello
 ```
 
 ### Setup
