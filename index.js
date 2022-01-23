@@ -7,13 +7,12 @@ const { validate } = require('d8a')
 const _ = require('lodash')
 const fport = require('fport')
 
+const MATCHER = /[.-](test|setup|config)\.yml$/
 const CONFIG = { db: { name: 'flekk-test' } }
 
 module.exports = function flekk(opt = {}) {
   const path = opt.path || 'test'
-  let $db = null
-  const tests = []
-  const setups = []
+  let $db = null, pool = []
   let files = tree(path)
   let root = fpath.join(process.cwd(), path)
 
@@ -36,23 +35,19 @@ module.exports = function flekk(opt = {}) {
   const client = waveorb(`${url}:${port}`)
 
   for (const file of files) {
+    const match = file.match(MATCHER)
+    if (!match) continue
     const data = read(file)
     const name = file
       .replace(root, '')
-      .replace(/\.(test|setup)\.yml$/, '')
+      .replace(match[0], '')
       .slice(1)
-
-    const node = { file, data, name }
-
-    if (file.endsWith('.test.yml')) {
-      tests.push(node)
-    } else if (file.endsWith('.setup.yml')) {
-      setups.push(node)
-    }
+    pool.push({ file, data, name, type: match[1] })
   }
 
   async function setup({ val, run }) {
     if (typeof val == 'string') val = [val]
+    const setups = pool.filter(x => x.type == 'setup')
     for (const name of val) {
       const s = setups.find(x => x.name == name)
       if (s) await run(s.data)
@@ -125,9 +120,9 @@ module.exports = function flekk(opt = {}) {
     }
 
     const results = []
+    const tests = pool.filter(x => x.type == 'test')
     for (const t of tests) {
       if (!match || t.name.includes(match)) {
-
         const obj = Object.assign({}, t)
         try {
           obj.state = await runner(t.data, obj)
