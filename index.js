@@ -12,7 +12,8 @@ const CONFIG = { db: { name: 'flekk-test' } }
 
 module.exports = function flekk(opt = {}) {
   const path = opt.path || 'test'
-  let $db = null, pool = []
+  let $db = null
+  const pool = { config: [], setup: [], test: [] }
   let files = tree(path)
   let root = fpath.join(process.cwd(), path)
 
@@ -21,18 +22,15 @@ module.exports = function flekk(opt = {}) {
     config = read(fpath.join(root, 'flekk.config.yml'))
   } catch(e) {}
   config = _.merge(CONFIG, config)
-
-  const port = process.env.FLEKK_PORT
+  config.port = process.env.FLEKK_PORT
     || config.port
     || opt.port
     || 5061
 
-  const url = process.env.FLEKK_URL
+  config.url = process.env.FLEKK_URL
     || config.url
     || opt.url
     || 'http://localhost'
-
-  const client = waveorb(`${url}:${port}`)
 
   for (const file of files) {
     const match = file.match(MATCHER)
@@ -42,19 +40,30 @@ module.exports = function flekk(opt = {}) {
       .replace(root, '')
       .replace(match[0], '')
       .slice(1)
-    pool.push({ file, data, name, type: match[1] })
+    pool[match[1]].push({ file, data, name })
   }
 
-  async function setup({ val, run }) {
+  const ext = {}
+
+  ext.config = async function({ val, params }) {
+    // Apply copy of global config
+    params.config = _.merge({}, config)
     if (typeof val == 'string') val = [val]
-    const setups = pool.filter(x => x.type == 'setup')
     for (const name of val) {
-      const s = setups.find(x => x.name == name)
+      const c = pool.config.find(x => x.name == name)
+      params.config = _.merge({}, params.config, c.data)
+    }
+  }
+
+  ext.setup = async function({ val, run }) {
+    if (typeof val == 'string') val = [val]
+    for (const name of val) {
+      const s = pool.setup.find(x => x.name == name)
       if (s) await run(s.data)
     }
   }
 
-  async function db({ val }) {
+  ext.db = async function({ val }) {
     let { action, query, values, options } = val
     let [model, verb] = action.split('/')
     let args = [query, options]
@@ -64,7 +73,7 @@ module.exports = function flekk(opt = {}) {
     return await $db(model)[verb](...args)
   }
 
-  async function test({ val: spec, setter, get }) {
+  ext.test = async function({ val: spec, setter, get }) {
     const received = get(`$${setter}`)
     const result = await validate(spec, received)
     if (result) {
@@ -75,20 +84,13 @@ module.exports = function flekk(opt = {}) {
     return received
   }
 
-  async function api({ val }) {
+  ext.api = async function({ val }) {
+    const { url, port } = config
+    const client = waveorb(`${url}:${port}`)
     return await client(val)
   }
 
-  const runner = weblang({
-    vars: {},
-    pipes: {},
-    ext: {
-      setup,
-      db,
-      test,
-      api
-    }
-  })
+  const runner = weblang({ ext })
 
   function log(...args) {
     if (!opt.quiet) {
@@ -98,6 +100,7 @@ module.exports = function flekk(opt = {}) {
 
   // Wait for web server
   async function server() {
+    const { url, port } = config
     let up, retry = 0, host = url.replace(/https?:\/\//, '')
     while(!up && retry++ <= 50) {
       up = await fport.taken(port, host)
@@ -120,8 +123,7 @@ module.exports = function flekk(opt = {}) {
     }
 
     const results = []
-    const tests = pool.filter(x => x.type == 'test')
-    for (const t of tests) {
+    for (const t of pool.test) {
       if (!match || t.name.includes(match)) {
         const obj = Object.assign({}, t)
         try {
