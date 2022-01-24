@@ -104,6 +104,10 @@ module.exports = function flekk(opt = {}) {
     }
   }
 
+  async function drop() {
+    if ($db) await $db.drop()
+  }
+
   // Wait for web server
   async function server() {
     const { url, port } = config
@@ -122,6 +126,7 @@ module.exports = function flekk(opt = {}) {
     log('\n⭐ Starting test suite\n')
     if (!$db) $db = await connection(config.db)
 
+    await drop()
     await server()
 
     if (opt.timer) {
@@ -138,9 +143,10 @@ module.exports = function flekk(opt = {}) {
         } catch(e) {
           log(`❌ ${t.name}`)
           throw e
+        } finally {
+          await drop()
         }
         results.push(obj)
-        if ($db) await $db.drop()
       }
     }
 
