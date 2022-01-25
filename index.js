@@ -75,7 +75,7 @@ module.exports = function flekk(opt = {}) {
 
   ext.test = async function({ val: spec, setter, get }) {
     const received = get(`$${setter}`)
-    const result = await validate(spec, received)
+    const result = await validate(spec, received, { mode: 'strict' })
     if (result) {
       const error = new Error('Test failed')
       error.data = { spec, received }
