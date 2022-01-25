@@ -68,8 +68,8 @@ it('should test fail object', async ({ t }) => {
   } catch(e) {
     t.ok(e.data.received.name == 'hello')
     t.ok(e.data.received.email == 'hello@example.com')
-    t.ok(e.data.spec.name == 'bye')
-    t.ok(e.data.spec.email == 'bye@example.com')
+    t.ok(e.data.spec.name.eq == 'bye')
+    t.ok(e.data.spec.email.eq == 'bye@example.com')
     t.ok(e.message == 'Test failed')
   }
   t.ok(result === null)

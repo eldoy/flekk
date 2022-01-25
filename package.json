@@ -18,10 +18,10 @@
   "license": "MIT",
   "devDependencies": {
     "spekk": "^0.2.0",
-    "waveorb": "^0.26.3"
+    "waveorb": "^0.26.4"
   },
   "dependencies": {
-    "d8a": "^0.6.1",
+    "d8a": "^0.6.3",
     "extras": "^0.10.4",
     "fport": "^0.2.2",
     "lodash": "^4.17.21",
