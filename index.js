@@ -90,10 +90,10 @@ module.exports = function flekk(opt = {}) {
     return await client(val)
   }
 
-  ext.log = function({ key, val, get }) {
-    console.log()
-    inspect({ [key]: get(val) }, { depth: 20 })
-    console.log()
+  ext.log = function({ raw, id, val }) {
+    const name = raw + (id ? `@${id}` : '')
+    const result = inspect({ [name]: val }, { depth: 20, quiet: true })
+    console.log(`\n${result}\n`)
   }
 
   const runner = weblang({ ext })
