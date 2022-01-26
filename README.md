@@ -42,7 +42,7 @@ There are 6 basic commands:
 * __test__   - test a value
 * __log__    - log a value to console
 
-This is how a test file can be written:
+This is how to use them:
 
 ```yml
 # Load config file
