@@ -1,0 +1,6 @@
+$hello:
+  name: hello
+$bye:
+  name: hello
+test$bye:
+  name: $hello.name

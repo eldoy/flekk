@@ -73,9 +73,9 @@ module.exports = function flekk(opt = {}) {
     return await $db(model)[verb](...args)
   }
 
-  ext.test = async function({ raw: spec, get, setter }) {
+  ext.test = async function({ val, raw: spec, get, setter }) {
     const got = get(`$${setter}`)
-    const result = await validate(spec, got)
+    const result = await validate(val, got)
     if (result) {
       const error = new Error('Test failed')
       error.data = { spec, got, setter }

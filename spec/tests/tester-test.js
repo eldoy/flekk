@@ -68,9 +68,15 @@ it('should test fail object', async ({ t }) => {
   } catch(e) {
     t.ok(e.data.got.name == 'hello')
     t.ok(e.data.got.email == 'hello@example.com')
-    t.ok(e.data.spec.name.eq == 'bye')
-    t.ok(e.data.spec.email.eq == 'bye@example.com')
+    t.ok(e.data.spec.name == 'bye')
+    t.ok(e.data.spec.email == 'bye@example.com')
     t.ok(e.message == 'Test failed')
   }
   t.ok(result === null)
+})
+
+it('should test with var values', async ({ t }) => {
+  let result = await flekk(opt)('test16')
+  t.ok(result[0].state.vars.hello.name == 'hello')
+  t.ok(result[0].state.vars.bye.name == 'hello')
 })
