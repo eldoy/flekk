@@ -8,10 +8,14 @@ async function run() {
   try {
     await flekk({ timer: true })(match)
   } catch(e) {
-    console.log('')
-    inspect(e.data.spec, { depth: 20 })
-    console.log('')
-    inspect(e.data.received, { depth: 20 })
+    if (e.data) {
+      console.log(`\n$${e.data.setter} wants:\n`)
+      inspect(e.data.spec, { depth: 20 })
+      console.log('\nbut got:\n')
+      inspect(e.data.got, { depth: 20 })
+    } else {
+      throw e
+    }
   }
   process.exit(0)
 }
