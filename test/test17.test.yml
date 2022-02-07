@@ -1,0 +1,10 @@
+$hello:
+  error:
+    message: validation error
+  values:
+    nisse:
+      - is required
+
+test$hello:
+  error.message: validation error
+  values.nisse[0]: is required

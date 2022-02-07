@@ -80,3 +80,9 @@ it('should test with var values', async ({ t }) => {
   t.ok(result[0].state.vars.hello.name == 'hello')
   t.ok(result[0].state.vars.bye.name == 'hello')
 })
+
+it('should test with deep values', async ({ t }) => {
+  let result = await flekk(opt)('test17')
+  t.ok(result[0].state.vars.hello.error.message == 'validation error')
+  t.ok(result[0].state.vars.hello.values.nisse[0] == 'is required')
+})
