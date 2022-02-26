@@ -1,4 +1,4 @@
-db$result:
+@db$result:
   action: project/create
   values:
     name: hello

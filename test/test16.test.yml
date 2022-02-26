@@ -2,5 +2,5 @@ $hello:
   name: hello
 $bye:
   name: hello
-test$bye:
+@test$bye:
   name: $hello.name

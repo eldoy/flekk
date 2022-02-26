@@ -1,4 +1,4 @@
-api$result:
+@api$result:
   action: project/create
   values:
     name: hello

@@ -46,37 +46,37 @@ This is how to use them:
 
 ```yml
 # Load config file
-config: app
+@config: app
 
 # Load multiple config files, will be merged
-config:
+@config:
   - app
   - remote
 
 # Run setup file
-setup: login
+@setup: login
 
 # Run multiple setup files
-setup:
+@setup:
   - create-user
   - login
 
 # Test the site/create API
-api$result:
+@api$result:
   action: site/create
   values:
     name: hello
   auth: $auth
-test$result:
+@test$result:
   id:
     is: id
 
 # Test database values
-db$site:
+@db$site:
   action: site/get
   query:
     id: $result.id
-test$site:
+@test$site:
   id:
     required: true
 

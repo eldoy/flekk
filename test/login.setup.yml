@@ -1,2 +1,2 @@
-api$session:
+@api$session:
   action: session/create
