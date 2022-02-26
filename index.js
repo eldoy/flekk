@@ -105,10 +105,8 @@ module.exports = function flekk(opt = {}) {
     return await client(val)
   }
 
-  ext.log = function({ raw, id, val }) {
-    const name = raw + (id ? `@${id}` : '')
-
-    const result = inspect({ [name]: val }, { depth: 20, quiet: true })
+  ext.log = function({ raw, val }) {
+    const result = inspect({ [raw]: val }, { depth: 20, quiet: true })
 
     console.log(`\n${result}\n`)
   }
