@@ -48,7 +48,7 @@ module.exports = function flekk(opt = {}) {
 
   const ext = {}
 
-  ext.config = async function({ val, params, load }) {
+  ext.config = async function({ val, params, util }) {
     // Start with copy of global config
     params.config = _.merge({}, config)
 
@@ -56,7 +56,7 @@ module.exports = function flekk(opt = {}) {
 
     for (const name of val) {
       const c = pool.config.find(x => x.name == name)
-      const data = load(c.data)
+      const data = util.yaml.load(c.data)
       params.config = _.merge({}, params.config, data)
     }
   }
