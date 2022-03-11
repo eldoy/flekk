@@ -1,5 +1,5 @@
 const flekk = require('../../index.js')
-const opt = { quiet: true }
+const opt = { quiet: true, exact: true }
 
 it('should test pass string', async ({ t }) => {
   let result = await flekk(opt)('test2')

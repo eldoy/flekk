@@ -153,7 +153,10 @@ module.exports = function flekk(opt = {}) {
 
     const results = []
     for (const t of pool.test) {
-      if (!match || t.name.includes(match)) {
+      const should = opt.exact
+        ? t.name == match
+        : t.name.includes(match)
+      if (!match || should) {
         const obj = Object.assign({}, t)
         try {
           obj.state = await runner(t.data, obj)

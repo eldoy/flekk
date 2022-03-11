@@ -1,5 +1,5 @@
 const flekk = require('../../index.js')
-const opt = { quiet: true }
+const opt = { quiet: true, exact: true }
 
 it('should work with single config', async ({ t }) => {
   let result = await flekk(opt)('test14')
