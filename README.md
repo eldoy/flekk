@@ -82,7 +82,7 @@ This is how to use them:
 
 # Print value to terminal
 $hello: world
-log: $hello
+@log: $hello
 ```
 
 ### Setup
